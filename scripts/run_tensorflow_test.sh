@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+ls -la /tmp/scripts
+
 BASEDIR="$(dirname "$0")"
 # build a PowerAI docker image (Docker file should already be there)
 docker build . -t nvidia-powerai -f /tmp/scripts/Dockerfile
