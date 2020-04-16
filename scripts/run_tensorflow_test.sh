@@ -15,7 +15,7 @@
 
 BASEDIR="$(dirname "$0")"
 # build a PowerAI docker image (Docker file should already be there)
-docker build . -t nvidia-powerai -f ${BASEDIR}/Dockerfile
+docker build . -t nvidia-powerai -f /tmp/scripts/Dockerfile
 
 # run a few tensorflow tests
 nvidia-docker run --rm -v ${BASEDIR}/results:/tmp/results  nvidia-powerai bash -c "source /opt/DL/tensorflow/bin/tensorflow-activate; python /opt/DL/tensorflow/lib/python2.7/site-packages/tensorflow/examples/learn/multiple_gpu.py --test_with_fake_data > /tmp/results/results.txt 2>&1"
@@ -29,6 +29,6 @@ chmod +x mc
 
 # move the results to an object storage bucket
 ./mc config host add icos $1 $2 $3
-./mc cp ${BASEDIR}/results/results.txt icos/$4/results-$now.txt
+./mc cp /tmp/scripts/results/results.txt icos/$4/results-$now.txt
 rm mc
 echo "SUCCESS: Tensorflow setup, sample test run, and output uploaded to ICOS bucket"
