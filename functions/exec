@@ -1,0 +1,10 @@
+#! /bin/bash
+read ARGS
+echo $ARGS
+IBMCLOUD_API_KEY=`echo "$ARGS" | jq -r '."IBMCLOUD_API_KEY"'`
+WORKSPACE_ID=`echo "$ARGS" | jq -r '."WORKSPACE_ID"'`
+ACTION=`echo "$ARGS" | jq -r '."ACTION"'`
+env | cat
+ibmcloud login -a cloud.ibm.com -r us-south -g default --apikey $IBMCLOUD_API_KEY
+ACTIVITY_ID=`ibmcloud schematics $ACTION --force --json --id $WORKSPACE_ID | grep activityid | awk '{print $2}' | sed "s/\"//g"`
+echo "{ \"message\": \"Applied, Your Activity ID is $ACTIVITY_ID.\" }"
