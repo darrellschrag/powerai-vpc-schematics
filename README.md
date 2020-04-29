@@ -10,7 +10,7 @@ timer. A second trigger will be invoked when the ICOS bucket is written to and w
 
 The following picture illustrates the solution:
 
-![Architecture](mages/diagram.png)
+![Architecture](images/diagram.png)
 
 1. A alarm trigger in IBM Cloud Functions occurs
 2. An IBM Cloud function is invoked from the trigger
