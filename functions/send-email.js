@@ -17,7 +17,9 @@ function main(params) {
             msg: 'E-mail was sent successfully!'
         };
 
-        if (!params.email) {
+        console.log(`passed parameters:` + JSON.stringify(params));
+        
+        if (!params.to_email) {
             response.msg = "Error: Destination e-mail was not provided.";
             response.code = 400;
         }
@@ -25,7 +27,7 @@ function main(params) {
             response.msg = "Error: Action was not provided.";
             response.code = 400;
         }
-        else if (!params.from) {
+        else if (!params.from_email) {
             response.msg = "Error: Source e-mail was not provided.";
             response.code = 400;
         }
@@ -52,12 +54,12 @@ function main(params) {
 }
 
 function sendEmail(params, callback) {
-    smtpConfig.auth.user = params.from;
+    smtpConfig.auth.user = params.from_email;
     smtpConfig.auth.pass = params.password;
     let transporter = nodemailer.createTransport(smtpConfig);
     let mailOptions = {
-        from: `IBM Cloud Functions automation <${smtpConfig.auth.email}>`,
-        to: params.email,
+        from: `IBM Cloud Functions automation <${smtpConfig.auth.user}>`,
+        to: params.to_email,
         subject: `cloud function action invoked`,
         text: `The cloud function action to ${params.action} Terraform was invoked`
     };
