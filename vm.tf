@@ -89,24 +89,7 @@ resource "null_resource" "provisioners" {
       type = "ssh"
       user = "root"
       agent = "false"
-      timeout = "30m"
-      host = "${ibm_is_floating_ip.fip1.address}"
-      private_key = "${tls_private_key.vision_keypair.private_key_pem}"
-    }
-  }
-
-
-  provisioner "file" {
-    content = <<ENDENVTEMPL
-#!/bin/bash -xe
-export DOCKERMOUNT=/var/lib/docker
-ENDENVTEMPL
-    destination = "/tmp/scripts/env.sh"
-    connection {
-      type = "ssh"
-      user = "root"
-      agent = "false"
-      timeout = "30m"
+      timeout = "5m"
       host = "${ibm_is_floating_ip.fip1.address}"
       private_key = "${tls_private_key.vision_keypair.private_key_pem}"
     }
